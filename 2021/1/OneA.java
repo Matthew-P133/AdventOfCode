@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class OneA {
 	public static void main(String[] args) {
-		String fp = System.getProperty("user.dir") + "\\One_A_1";
+		String fp = System.getProperty("user.dir") + "\\part1";
 		FileReader fr = null;
 		try {
 			fr = new FileReader(fp);
