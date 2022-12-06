@@ -1,12 +1,12 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <regex>
 #include <chrono>
+#include <set>
 
 using namespace std;
 
-string generateReString(int length);
+
 void findMarker(int length, string& line);
 
 int main() {
@@ -31,37 +31,16 @@ int main() {
     cout << "Completed in " << duration.count() << " ms" << endl;
 
     return 0;
-}
+}    
 
-string generateReString(int length) {
-    stringstream re;
-    for (int i = 0; i < length; i++) {
-        if (i != 0) {
-            re << "(?!";
-        }
-        for (int j = i; j > 0; j--) {
-            re << "\\" << j;
-            if (j != 1) {
-                re << "|";
-            }
-        }
-        if (i != 0) {
-            re << ")";
-        }
-        re << "(.)";
-    }
-    cout << "Generated regular expression: " << re.str() << endl;
-    return re.str();
-}
 
 void findMarker(int length, string& line) {
-    regex re(generateReString(length));
-    smatch matches;
-
-    regex_search(line, matches, re);
-    string marker = matches[0];
-    int position = matches.position(0) + length;
-
-    cout << "First marker of length " << length << " is '" << marker << "' and appears after " << position << " characters" << endl;
+    for (int counter = 0; counter < line.length() - length; counter++) {
+        string marker = line.substr(counter, length);
+        set<char> markerSet(marker.begin(), marker.end());
+        if (markerSet.size() == length) {
+             cout << "First marker of length " << length << " is '" << marker << "' and appears after " << counter + length << " characters" << endl;
+             return;
+        }
+    }
 }
-
