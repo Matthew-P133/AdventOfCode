@@ -60,7 +60,7 @@ void findMarker(int length, string& line) {
 
     regex_search(line, matches, re);
     string marker = matches[0];
-    int position = matches.position(0) + 14;
+    int position = matches.position(0) + length;
 
     cout << "First marker of length " << length << " is '" << marker << "' and appears after " << position << " characters" << endl;
 }
